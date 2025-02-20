@@ -4,5 +4,6 @@ export const pageUrls = {
     TRENDING: "/feed/trending",
     HISTORY: "/playlists/history",
     LIKED_VIDEOS: "/playlists/liked",
-    ALL_PLAYLISTS: "/playlists"
+    ALL_PLAYLISTS: "/playlists",
+    STUDIO: "/studio"
 } as const;

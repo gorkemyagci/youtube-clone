@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { pageUrls } from "@/lib/enums/page-urls";
 import { TRPCProvider } from "@/trpc/client";
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${inter.className} antialiased`}>
           <TRPCProvider>
+            <Toaster />
             <NuqsAdapter>
               {children}
             </NuqsAdapter>
