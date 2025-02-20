@@ -18,7 +18,6 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
                     </main>
                 </div>
             </div>
-            {children}
         </SidebarProvider>
     )
 }

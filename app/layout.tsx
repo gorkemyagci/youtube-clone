@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { pageUrls } from "@/lib/enums/page-urls";
+import { TRPCProvider } from "@/trpc/client";
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +21,13 @@ export default function RootLayout({
   return (
     <ClerkProvider afterSignOutUrl={pageUrls.HOME}>
       <html lang="en">
-        <body className={`${inter.className} antialiased`}>{children}</body>
+        <body className={`${inter.className} antialiased`}>
+          <TRPCProvider>
+            <NuqsAdapter>
+              {children}
+            </NuqsAdapter>
+          </TRPCProvider>
+        </body>
       </html>
     </ClerkProvider>
   );
