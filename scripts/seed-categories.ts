@@ -19,7 +19,6 @@ const categoryNames = [
 ];
 
 async function main() {
-  console.log("Seeding categories...");
   try {
     for (const name of categoryNames) {
       await db
@@ -35,9 +34,7 @@ async function main() {
           },
         });
     }
-    console.log("Categories seeded successfully");
   } catch (error) {
-    console.log("Error seeding categories..." + error);
     process.exit(1);
   }
 }
