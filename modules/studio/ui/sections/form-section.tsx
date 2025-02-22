@@ -196,7 +196,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                             <p className="text-sm text-muted-foreground">Manage your video details</p>
                         </div>
                         <div className="flex items-center gap-x-2">
-                            <Button type="submit" disabled={update.isPending}>
+                            <Button type="submit" disabled={update.isPending || !form.formState.isDirty}>
                                 Save
                             </Button>
                             <DropdownMenu>
