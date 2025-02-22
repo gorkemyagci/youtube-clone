@@ -199,7 +199,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                             <Button type="submit" disabled={update.isPending || !form.formState.isDirty}>
                                 Save
                             </Button>
-                            <DropdownMenu>
+                            <DropdownMenu modal={false}>
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="ghost" size="icon">
                                         <MoreVerticalIcon />
