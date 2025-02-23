@@ -43,6 +43,7 @@ import { THUMBNAIL_FALLBACK } from "@/modules/videos/constants";
 import { ThumbnailUploadModal } from "../components/thumbnail-upload-modal";
 import { ThumbnailGenerateModal } from "../components/thumbnail-generate-modal";
 import { Skeleton } from "@/components/ui/skeleton";
+import { APP_URL } from "@/lib/constants";
 
 interface FormSectionProps {
     videoId: string;
@@ -184,7 +185,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
     const onSubmit = async (data: z.infer<typeof videoUpdateSchema>) => {
         update.mutate(data);
     }
-    const fullUrl = `${process.env.VERCEL_URL || "http://localhost:3000"}/videos/${video.id}`;
+    const fullUrl = `${APP_URL}/videos/${video.id}`;
     const [isCopied, setIsCopied] = useState(false);
     const onCopy = async () => {
         await navigator.clipboard.writeText(fullUrl);

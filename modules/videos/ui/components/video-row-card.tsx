@@ -43,7 +43,7 @@ interface VideoRowCardProps extends VariantProps<typeof videoRowCardVariants> {
     onRemove?: () => void;
 }
 
-export const VideoRowCardSkeleton = ({ size }: VariantProps<typeof videoRowCardVariants>) => {
+export const VideoRowCardSkeleton = ({ size = "default" }: VariantProps<typeof videoRowCardVariants>) => {
     return (
         <div className={videoRowCardVariants({ size })}>
             <div className={thumbnailVariants({ size })}>
@@ -77,7 +77,7 @@ export const VideoRowCardSkeleton = ({ size }: VariantProps<typeof videoRowCardV
 }
 
 export const VideoRowCard = ({
-    data, size, onRemove
+    data, size = "default", onRemove
 }: VideoRowCardProps) => {
     const compactViews = useMemo(() => {
         return Intl.NumberFormat("en", {
@@ -101,8 +101,8 @@ export const VideoRowCard = ({
                     duration={data.duration}
                 />
             </Link>
-            <div className="flex min-w-0">
-                <div className="flex justify-between gap-x-2">
+            <div className="flex w-full min-w-0">
+                <div className="flex justify-between w-full gap-x-2">
                     <Link href={`/videos/${data.id}`} className="flex-1 min-w-0">
                         <h3 className={cn(
                             "font-medium line-clamp-2",
