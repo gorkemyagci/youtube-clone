@@ -1,6 +1,6 @@
 export const pageUrls = {
     HOME: "/",
-    SUBSCRIPTIONS: "/feed/subscriptions",
+    SUBSCRIPTIONS: "/feed/subscribed",
     TRENDING: "/feed/trending",
     HISTORY: "/playlists/history",
     LIKED_VIDEOS: "/playlists/liked",
