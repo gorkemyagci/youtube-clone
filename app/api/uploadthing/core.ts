@@ -9,6 +9,48 @@ import { z } from "zod";
 const f = createUploadthing();
 
 export const ourFileRouter = {
+  bannerUploader: f({
+    image: {
+      maxFileSize: "4MB",
+      maxFileCount: 1,
+    },
+  })
+    .middleware(async ({ input }) => {
+      const { userId: clerkUserId } = await auth();
+
+      if (!clerkUserId) throw new UploadThingError("Unauthorized");
+      const [user] = await db
+        .select()
+        .from(users)
+        .where(eq(users.clerkId, clerkUserId));
+      if (!user) throw new UploadThingError("User not found");
+      if (user.bannerKey) {
+        const utapi = new UTApi();
+        await utapi.deleteFiles(user.bannerKey);
+        await db
+          .update(users)
+          .set({
+            bannerKey: null,
+            bannerUrl: null,
+          })
+          .where(eq(users.id, user.id));
+      }
+      return { user };
+    })
+    .onUploadComplete(async ({ metadata, file }) => {
+      await db
+        .update(users)
+        .set({
+          bannerUrl: file.url,
+          bannerKey: file.key,
+        })
+        .where(
+          and(
+            eq(users.id, metadata.user.id)
+          )
+        );
+      return { uploadedBy: metadata.user.id };
+    }),
   thumbnailUploader: f({
     image: {
       maxFileSize: "4MB",
