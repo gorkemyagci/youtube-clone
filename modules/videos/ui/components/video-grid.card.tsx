@@ -28,7 +28,7 @@ export const VideoGridCard = ({ data, onRemove }: VideoGridCardProps) => {
                     duration={data.duration}
                 />
             </Link>
-            <VideoInfo data={data} />
+            <VideoInfo data={data} onRemove={onRemove} />
         </div>
     )
 }
