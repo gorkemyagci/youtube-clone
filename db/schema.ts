@@ -23,6 +23,8 @@ export const playlists = pgTable("playlist", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
   description: text("description"),
+  bannerUrl: text("banner_url"),
+  bannerKey: text("banner_key"),
   userId: uuid("user_id")
     .references(() => users.id, { onDelete: "cascade" })
     .notNull(),
@@ -80,6 +82,8 @@ export const users = pgTable(
     clerkId: text("clerk_id").unique().notNull(),
     name: text("name").notNull(),
     imageUrl: text("image_url").notNull(),
+    bannerUrl: text("banner_url"),
+    bannerKey: text("banner_key"),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").notNull().defaultNow(),
   },
