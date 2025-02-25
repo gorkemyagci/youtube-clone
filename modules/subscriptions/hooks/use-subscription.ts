@@ -18,6 +18,7 @@ export const useSubscription = ({
   const subscribe = trpc.subscriptions.create.useMutation({
     onSuccess: () => {
       toast.success("Subscribed");
+      utils.subscriptions.getMany.invalidate();
       utils.videos.getManySubscribed.invalidate();
       utils.users.getOne.invalidate({ id: userId });
       if (fromVideoId) {
@@ -25,15 +26,21 @@ export const useSubscription = ({
       }
     },
     onError: (error) => {
-      toast.error("Something went wrong");
+      console.log(error.data);
       if (error.data?.code === "UNAUTHORIZED") {
+        toast.error("Please sign in to subscribe");
         clerk.openSignIn();
+      } else if (error.data?.code === "BAD_REQUEST") {
+        toast.error("Invalid user ID");
+      } else {
+        toast.error("Something went wrong while subscribing");
       }
     },
   });
   const unsubscribe = trpc.subscriptions.remove.useMutation({
     onSuccess: () => {
       toast.success("Unsubscribed");
+      utils.subscriptions.getMany.invalidate();
       utils.videos.getManySubscribed.invalidate();
       utils.users.getOne.invalidate({ id: userId });
       if (fromVideoId) {
@@ -41,9 +48,11 @@ export const useSubscription = ({
       }
     },
     onError: (error) => {
-      toast.error("Something went wrong");
       if (error.data?.code === "UNAUTHORIZED") {
+        toast.error("Please sign in to unsubscribe");
         clerk.openSignIn();
+      } else {
+        toast.error("Something went wrong while unsubscribing");
       }
     },
   });

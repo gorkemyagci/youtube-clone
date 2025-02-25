@@ -39,7 +39,7 @@ export const UserPageInfo = ({ user }: UserPageInfoProps) => {
     const { userId, isLoaded } = useAuth();
     const clerk = useClerk();
     const { isPending, onClick } = useSubscription({
-        userId: user.clerkId,
+        userId: user.id,
         isSubscribed: user.viewerSubscribed,
     });
     return (
@@ -70,7 +70,7 @@ export const UserPageInfo = ({ user }: UserPageInfoProps) => {
                 </div>
                 {userId === user.clerkId ? (
                     <Button variant="secondary" asChild className="w-full mt-3 rounded-full">
-                        <Link href="/studio">
+                        <Link prefetch  href="/studio">
                             Go to studio
                         </Link>
                     </Button>
@@ -104,7 +104,7 @@ export const UserPageInfo = ({ user }: UserPageInfoProps) => {
                     </div>
                     {userId === user.clerkId ? (
                         <Button variant="secondary" asChild className="mt-3 rounded-full">
-                            <Link href="/studio">
+                            <Link prefetch  href="/studio">
                                 Go to studio
                             </Link>
                         </Button>
